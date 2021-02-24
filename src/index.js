@@ -49,8 +49,8 @@ export class RequestAuthorizationCode extends BaseOAuthClientComponent {
       redirectUri: oauthClient.options.redirectUri,
       args: {
         // add PKCE params to existing args
-        code_challenge: this.state.code_challenge,
-        code_challenge_method: "S256",
+        // code_challenge: this.state.code_challenge,
+        // code_challenge_method: "S256",
         ...args,
       },
     };
@@ -88,10 +88,13 @@ export class AuthorizationCodeCallback extends BaseOAuthClientComponent {
         props.tokenFn ||
         function () {
           // Obtain the generated and stored code verifier for PKCE
-          const codeVerifier = getCodeVerifier();
+          // const codeVerifier = getCodeVerifier();
           return oauthClient.code
             .getToken(document.location.href, {
-              body: { code_verifier: codeVerifier, ...props.args },
+              body: {
+                // code_verifier: codeVerifier,
+                ...props.args,
+              },
             })
             .then((token) => {
               // react-oauth-flow expects the `access_token` attribute to exist
