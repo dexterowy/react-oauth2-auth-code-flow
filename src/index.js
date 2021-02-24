@@ -91,7 +91,7 @@ export class AuthorizationCodeCallback extends BaseOAuthClientComponent {
           const codeVerifier = getCodeVerifier();
           return oauthClient.code
             .getToken(document.location.href, {
-              body: { code_verifier: codeVerifier, scope: props.scope },
+              body: { code_verifier: codeVerifier, ...props.args },
             })
             .then((token) => {
               // react-oauth-flow expects the `access_token` attribute to exist
